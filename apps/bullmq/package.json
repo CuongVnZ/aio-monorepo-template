@@ -47,10 +47,10 @@
     "zod": "^3.23.0"
   },
   "devDependencies": {
-    "@r3veal/eslint-config": "workspace:*",
-    "@r3veal/logging": "workspace:*",
-    "@r3veal/prettier-config": "workspace:*",
-    "@r3veal/tsconfig": "workspace:*",
+    "@acme/eslint-config": "workspace:*",
+    "@acme/logging": "workspace:*",
+    "@acme/prettier-config": "workspace:*",
+    "@acme/tsconfig": "workspace:*",
     "@types/pg": "^8.11.5",
     "eslint": "^9.0.0",
     "mysql2": "^3.9.2",

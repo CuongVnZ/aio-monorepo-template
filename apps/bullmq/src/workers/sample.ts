@@ -2,7 +2,7 @@
 
 import { createWorker } from "@/worker-builder";
 
-import { Queues } from "@r3veal/queues";
+import { Queues } from "../queues";
 
 // The worker is automatically typed with SampleJobData
 export const sampleWorker = createWorker(Queues.SampleQueue, async (job) => {
