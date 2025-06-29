@@ -31,7 +31,7 @@
     "bullmq": "^5.7.9",
     "crypto": "^1.0.1",
     "eml-parser": "^2.0.3",
-    "file-type": "^19.0.0",
+    "file-type": "^20.4.1",
     "ioredis": "^5.4.1",
     "jszip": "^3.10.1",
     "net": "^1.0.2",
@@ -55,7 +55,7 @@
     "eslint": "^9.0.0",
     "mysql2": "^3.9.2",
     "prettier": "^3.2.5",
-    "tsup": "^8.0.2",
+    "tsup": "^8.4.0",
     "typescript": "^5.4.5"
   },
   "prettier": "@r3veal/prettier-config",
