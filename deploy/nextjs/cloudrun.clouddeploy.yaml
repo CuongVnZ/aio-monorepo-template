@@ -1,0 +1,28 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: nextjs-pipeline
+description: NextJS deployment pipeline
+serialPipeline:
+  stages:
+    - targetId: nextjs-dev
+      profiles: []
+    - targetId: nextjs-prod
+      profiles: []
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: nextjs-dev
+description: NextJS development environment
+run:
+  location: projects/your-project-id/locations/us-central1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: nextjs-prod
+description: NextJS production environment
+run:
+  location: projects/your-project-id/locations/us-central1
+requireApproval: true

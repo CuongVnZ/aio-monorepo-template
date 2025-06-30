@@ -1,0 +1,21 @@
+{
+  "name": "@worker-template/pulumi",
+  "main": "src/index.ts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "deploy-infra": "pulumi up",
+    "deploy-image": "bash deploy-image.sh",
+    "clean": "git clean -xdf .cache .turbo node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^18",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@pulumi/docker": "^4.5.8",
+    "@pulumi/gcp": "^8.13.0",
+    "@pulumi/pulumi": "^3.113.0",
+    "@pulumi/random": "^4.16.8"
+  }
+}

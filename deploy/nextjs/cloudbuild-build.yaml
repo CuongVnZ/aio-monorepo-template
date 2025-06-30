@@ -1,0 +1,63 @@
+steps:
+  - name: "gcr.io/cloud-builders/git"
+    id: "checkout-specific-commit"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        cd /workspace
+        git fetch --tags
+        git checkout ${_TAG_NAME}
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "docker-build"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        docker build \
+          -t ${_NEXTJS_IMAGE} \
+          -f /workspace/deploy/nextjs/Dockerfile \
+          --build-arg NODE_ENV=${_NODE_ENV} \
+          --build-arg NEXTAUTH_URL=${_NEXTAUTH_URL} \
+          --build-arg NEXT_PUBLIC_APP_URL=${_NEXT_PUBLIC_APP_URL} \
+          .
+    secretEnv: ["DATABASE_URL", "NEXTAUTH_SECRET"]
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "docker-push"
+    args: ["push", "${_NEXTJS_IMAGE}"]
+
+  - name: "gcr.io/${PROJECT_ID}/binauthz-attestation:latest"
+    id: "create-attestation"
+    args:
+      - "--artifact-url"
+      - "${_NEXTJS_IMAGE}"
+      - "--attestor"
+      - "projects/${PROJECT_ID}/attestors/built-by-cloud-build"
+      - "--keyversion"
+      - "projects/${PROJECT_ID}/locations/us-central1/keyRings/binauthz-keyring/cryptoKeys/binauthz-signing-key/cryptoKeyVersions/1"
+
+images:
+  - $_NEXTJS_IMAGE
+
+substitutions:
+  _TAG_NAME: "tag-name"
+  _ENV: "dev"
+  _NODE_ENV: "development"
+  _NEXTJS_IMAGE: "us-central1-docker.pkg.dev/${PROJECT_ID}/containers/nextjs-${_ENV}:${_TAG_NAME}"
+  _NEXTAUTH_URL: ""
+  _NEXT_PUBLIC_APP_URL: ""
+  _DATABASE_URL_SECRET_NAME: ""
+  _NEXTAUTH_SECRET_SECRET_NAME: ""
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/${PROJECT_ID}/secrets/${_DATABASE_URL_SECRET_NAME}/versions/latest
+      env: "DATABASE_URL"
+    - versionName: projects/${PROJECT_ID}/secrets/${_NEXTAUTH_SECRET_SECRET_NAME}/versions/latest
+      env: "NEXTAUTH_SECRET"
+
+options:
+  dynamic_substitutions: true
+  requestedVerifyOption: VERIFIED

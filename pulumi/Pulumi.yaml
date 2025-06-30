@@ -1,0 +1,10 @@
+name: worker-template
+description: A minimal TypeScript Pulumi program for deploying NextJS app
+runtime:
+  name: nodejs
+  options:
+    packagemanager: pnpm
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: typescript

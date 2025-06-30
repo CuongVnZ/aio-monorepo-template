@@ -16,6 +16,9 @@ const config = {
     "@acme/validators",
   ],
 
+  /** Enable standalone output for Docker deployment */
+  output: "standalone",
+
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },

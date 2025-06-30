@@ -1,0 +1,29 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: nextjs
+build:
+  artifacts:
+    - image: nextjs
+      docker:
+        dockerfile: Dockerfile
+        buildArgs:
+          NODE_ENV: "development"
+          NEXTAUTH_URL: "http://localhost:3000"
+          NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+deploy:
+  cloudrun:
+    projectid: your-project-id
+    region: us-central1
+    hooks:
+      before:
+        - host:
+            command: ["sh", "-c", "echo Deploying NextJS app..."]
+      after:
+        - host:
+            command: ["sh", "-c", "echo NextJS app deployed successfully!"]
+portForward:
+  - resourceType: service
+    resourceName: nextjs-dev
+    port: 3000
+    localPort: 3000
