@@ -1,9 +1,9 @@
 import type { WorkerOptions } from "bullmq";
 import { Worker } from "bullmq";
 
-import type { Queues } from "@r3veal/queues";
-import { Logger } from "@r3veal/logging";
-import { createConnection, QUEUE_CONFIG, QueueData } from "@r3veal/queues";
+import { Logger } from "@acme/logging";
+import type { Queues } from "./queues";
+import { createConnection, QUEUE_CONFIG, QueueData } from "./queues";
 
 export class WorkerBuilder {
   private static workers = new Map<Queues, Worker>();

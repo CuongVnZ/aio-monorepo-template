@@ -1,11 +1,7 @@
-import { Logger } from "@r3veal/logging";
+import { Logger } from "@acme/logging";
 
 import { WorkerBuilder } from "./worker-builder";
 
-export * from "./workers/paraform/migrate-candidates";
-export * from "./workers/paraform/migrate-companies";
-export * from "./workers/paraform/migrate-educations";
-export * from "./workers/paraform/migrate-experiences";
 export * from "./workers/sample";
 
 export { env } from "./env";
